@@ -1,0 +1,9 @@
+{
+        "C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
+        "files.associations": {
+                "mapa.h": "c",
+                "imagens.h": "c",
+                "conexao.h": "c",
+                "desenha.h": "c"
+        }
+}
