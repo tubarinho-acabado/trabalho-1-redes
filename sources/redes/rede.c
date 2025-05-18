@@ -176,9 +176,12 @@ void recebe_direcao(Rede *r, Mapa *mapa, Personagem *per) {
             tipo = MSG_TEXTO_ACK_NOME;
     }
 
+    Mensagem *enviar = cria_mensagem(0, r->seq_envia, tipo, 0, NULL);
+    envia_mensagem(enviar, r->soquete);
     atualiza_sequencia_envia(r);
-    envia_mensagem_2bytes(r, tipo, 0, 0);
+    //envia_mensagem_2bytes(r, tipo, 0, 0);
     destroi_mensagem(msg);
+    destroi_mensagem(enviar);
 }
 
 void recebe_pos_inicial(Rede *r, Personagem *per) {
@@ -194,10 +197,13 @@ void recebe_pos_inicial(Rede *r, Personagem *per) {
     else {
         muda_posicao(per, msg->dados[0], msg->dados[1]);
         //arrumar
-        tipo = MSG_OK_ACK;
+        tipo = MSG_ACK;
     }
 
-    envia_mensagem_2bytes(r, tipo, 255, 255);
+    Mensagem *enviar = cria_mensagem(4, r->seq_envia, tipo, 0, "DADO");
+    envia_mensagem(enviar, r->soquete);
+    //envia_mensagem_2bytes(r, tipo, 255, 255);
     atualiza_sequencia_envia(r);
     destroi_mensagem(msg);
+    destroi_mensagem(enviar);
 }
